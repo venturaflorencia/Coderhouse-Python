@@ -32,12 +32,4 @@ class AvatarFormulario(forms.ModelForm):
 
 
 
-class FormMensaje(forms.Form):
-    mensaje =forms.CharField(widget=forms.Textarea(attrs = {
-
-        "class": "formularios_ms",
-        "placeholder": "Escribe tu mensaje"
-
-
-    }))
 

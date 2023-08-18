@@ -5,7 +5,11 @@
 <form method="post" enctype="multipart/form-data" style="color:beige">
  {% csrf_token %}
  {{ form.as_p }}
+<br>
+<input type="submit" class="btn btn-success" value="Guardar Cambios"/>
 </form>
+
 <br>
 <a class="btn btn-secondary" href="{% url 'editar_perfil' %}">Volver al perfil<i class="bi bi-arrow-90deg-left"></i></a>
+
 {% endblock contenido %}
