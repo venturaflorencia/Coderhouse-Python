@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+
+
+{% block contenido %}
+
+<style>
+
+
+    #contenedor_ms{
+
+        width: 90%;
+        margin: 10px auto;
+        background: #fff;
+        border-radius: 5px;
+        border-bottom: 3px solid #e6e6e6;
+        padding: 5px;
+        overflow-y: auto
+        
+
+    }
+    .div_ms{
+
+        margin: 1.2rem auto;
+        width: 35%;
+        padding: 0.2rem 0.6rem 0.2rem 0.6rem;
+        margin-bottom: 50px;
+        
+
+    }
+
+    .mis_mensajes{
+
+
+        margin-right: 5px;
+        background-color: rgb(29, 161, 242);
+        
+        
+
+    }
+
+    .tus_mensajes{
+
+
+        margin-left: 5px;
+        background-color: rgb(29, 242, 161);
+        
+
+    }
+
+
+    .div_form_ms{
+
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 50px;
+        margin-left: -3px;
+        border: 1px solid #e6e6e6
+    }
+
+    #id_mensaje{
+        display: block;
+        padding: 6px 12px;
+        margin-right: 1%;
+        margin-left: 1%;
+        width: 98%;
+        height: 50 px;
+        min-height: 50px;
+        max-height: 150px;
+        box-sizing: border-box;
+        font-size: 14px;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        
+
+    }
+
+    .btn_enviar{
+        background: #98ca3f;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius:5px;
+        border:none;
+        otuline:none;
+        border-bottom: 5px solid #6d932b;
+        width: 150px:
+        cursor: pointer;
+        display: block;
+        transition: 0.3;
+    }
+
+</style>
+
+{% for mensaje in object.canalmensaje_set.all %}
+    {% for user in mensaje.canal.usuarios.all %}
+        {% if user != request.user %}
+            <h1>Estas hablando con: {{ user.username }}</h1>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+    <h4>Mensajes</h4>
+    <div id = "contenedor_ms">
+    {% for mensaje in object.canalmensaje_set.all %}
+        <div class="div_ms {% if request.user == mensaje.usuario %} mis_mensajes
+        {% else %} tus_mensajes {%endif %}">
+            <small>{{mensaje.usuario}}</small>
+            <p>{{mensaje.texto| safe}}</p>
+            <small>{{mensaje.tiempo}}</small>
+        </div>
+            
+    {% endfor %}
+    
+    </div>
+    <div class ="div_form_ms">
+        <form id="form_submit" action="{{ request.path }}" method="POST" >
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            <button type = "submit" class ="btn_enviar">
+                Enviar
+            </button>
+    </form>
+    </div>
+
+
+
+<script>
+    const MsgForm = document.getElementById("form_submit")
+    const msgContainer = document.getElementById("contenedor_ms")
+
+
+    MsgForm.addEventListener("submit", (event) => {
+
+        event.preventDefault()
+        const targetForm = event.target;
+        const formData = new FormData(targetForm)
+
+        const xhr = new XMLHttpRequest()
+        const endpoint = MsgForm.getAttribute("action")
+        const method = MsgForm.getAttribute("method")
+
+        xhr.open(method, endpoint)
+
+        xhr.responseType = 'json'
+
+        xhr.setRequestHeader("HTTP_X_REQUESTED_WITH","XMLHttpRequest");
+        xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+
+        xhr.onload = () =>{
+
+            console.log(xhr.status, xhr.response)
+
+            if (xhr.status === 201){
+                const respuestaData = xhr.response
+                let actualMensajeHtml = msgContainer.innerHTML
+                actualMensajeHtml += `<div class = ''><b>${respuestaData.username}</b><p>
+                    ${respuestaData.mensaje}</p></div>`;
+                    msgContainer.innerHTML = actualMensajeHtml
+                    MsgForm.reset()
+
+            
+            }else if (xhr.status === 400){
+                console.log(xhr.response)
+            }else{
+                alert("Ha ocurrido un error, por favor intenta luego")
+            }
+
+
+
+        }
+
+        xhr.send(formData)
+
+    })
+
+
+
+
+
+
+
+</script>
+
+
+
+{% endblock %}

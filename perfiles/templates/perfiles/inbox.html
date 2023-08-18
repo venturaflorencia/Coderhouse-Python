@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+<TITLE>
+{% block titulo%}
+    INBOX
+{% endblock titulo%}
+
+</TITLE>
+{% block contenido %}
+
+
+
+
+<h1 style= "width: 70%; margin: 50px auto">
+{{user}} Inbox
+</h1>
+
+
+
+
+
+
+
+<div class="div_inbox">
+    {% for usuario in usuarios %}
+        {% with inbox=usuario.canalusuario_set.first %}
+            <a href="{% url 'detailms' usuario.username %}">
+                <p>{{ usuario.username }} </p>
+
+            </a>
+        {% endwith %}
+    {% endfor %}
+</div>
+
+
+
+
+
+<style>
+
+
+    .div_inbox{
+
+        width: 90%;
+        margin: 10px auto;
+        background: #fff;
+        border-radius: 5px;
+        border: 3px solid #e6e6e6;
+        padding: 5px;
+
+    }
+
+
+
+</style>
+
+{% endblock %}

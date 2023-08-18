@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+
+
+
+{% block contenido %}
+<section>
+ <div>
+   <h1>Posteos</h1>
+   <a href="{% url 'crear_posteo' %}">Subir posteo</a>
+   <br>
+
+    <br>
+   <table class="table">
+     <tbody>
+       <tr class="tabla-fila">
+         <th>ID</th>
+         <th>Titulo</th>
+         <th>Creador</th>
+         <td>Fecha publicacion</td>
+         <td></td>
+         <td></td>
+         <td></td>
+       </tr>
+       {% if object_list %}
+          {% for posteo in object_list %}
+          <tr class="tabla-fila">
+            <td>{{ posteo.id }}</td>
+            <td>{{ posteo.titulo }}</td>
+            <td>{{ posteo.creador }}</td>
+            <td>{{ posteo.fecha_publicacion }}</td>
+            <td>
+              <a href="{% url 'ver_posteo' posteo.id %}">Ver</a>
+            </td>
+            <td>
+              <a href="{% url 'editar_posteo' posteo.id %}">Editar</a>
+            </td>
+            <td>
+              <a href="{% url 'eliminar_posteo' posteo.id %}">
+                <i class="bi bi-trash"></i>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+
+       {% else  %}
+          <tr>
+            <td>No hay entradas aún</td>
+          </tr>
+       {% endif %}
+     </tbody>
+   </table>
+
+ </div>
+</section>
+
+
+<style>
+  .tabla-fila {
+   background-color: #fff; 
+    }
+</style>
+{% endblock contenido %}

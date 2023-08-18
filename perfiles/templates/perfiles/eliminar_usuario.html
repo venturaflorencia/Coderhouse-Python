@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<form method="post" style="color:beige">
+ {% csrf_token %}
+ {{ form.as_p }}
+ <p> Se eliminará: <b>{{ user.username }}</b> </p>
+ <p>¿Esta seguro de realizar esta acción?</p>
+ <input type="submit" class="btn btn-danger" value="Borrar Usuario" />
+</form>
+
+<br>
+<a class="btn btn-secondary" href="{% url 'inicio' %}">Regresar <i class="bi bi-arrow-90deg-left"></i></a>
+
+{% endblock contenido %}

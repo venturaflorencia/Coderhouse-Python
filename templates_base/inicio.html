@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}
+INK TATTOO
+{% endblock titulo %}
+
+{% block contenido %}
+<header style="background-color: black;">
+    <style>
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+
+    <div class="container" style="background-color: black;">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder" style="color: beige;">¡BIENVENID@!</h1>
+            <p class="lead mb-0" style="color: beige;">Este es un blog dedicado a los tatuajes de nuestros artistas.</p>
+        </div>
+    </div>
+</header>
+<br>
+<div class="image-container">
+    <img src="{% static 'images/inicio.jpg' %}" alt="inicio" width="1200" height="720">
+</div>
+{% endblock contenido %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<p style="color:beige">Tu nombre de usuario es <b>{{ object.username }}</b></p>
+
+<h3 style="color:beige">Editar datos:</h3>
+<form method="post" style="color:beige">
+ {% csrf_token %}
+ {{ form.as_p }}
+ <a class="btn btn-secondary" href="{% url 'agregar_avatar' %}">Cambiar Avatar</a>
+ <br><br>
+ <a class="btn btn-secondary"  href="{% url 'eliminar_perfil' object.username %}">Eliminar usuario<i class="bi bi-trash"></i></a>
+ <br><br>
+ <input type="submit" class="btn btn-success" value="Guardar Cambios"/>
+</form>
+
+{% endblock contenido %}

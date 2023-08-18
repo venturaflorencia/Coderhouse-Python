@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+<head>
+
+    {% block titulo%}
+    ARTICULOS
+    {% endblock titulo%}
+
+
+    <style>
+        .card {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+
+
+
+{% block contenido %}
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+{% if user.is_authenticated %}
+<h3> Hola {{user.get_full_name}}!</h3>
+<div>
+    {% endif %}
+</div>
+
+
+
+<form action="{% url 'buscar_posteo' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="busqueda">
+    <input type="submit" value="Buscar por titulo">
+
+    <br><br>
+    <div class="container">
+        <!-- Nested row for non-featured blog posts -->
+        {% for posteo in posteos %}
+        <div class="col-lg-8">
+            <!-- Blog post -->
+            <div class="card mb-5">
+                <a href="{% url 'ver_posteo' posteo.id %}">
+                    <div class="image-container">
+                        <img src="{{ posteo.imagen.url }}" alt="{{ posteo.imagen.alt }}" />
+                    </div>
+                </a>
+                <div class="card-body">
+                    <div class="small text-muted">{{ posteo.fecha_publicacion }}</div>
+                    <h2 class="card-title h4">{{ posteo.titulo }}</h2>
+                    <p class="card-text">{{ posteo.bajada }}</p>
+                    <a class="btn btn-primary" href="{% url 'ver_posteo' posteo.id %}">Read more →</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <style>
+        .image-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .image-container img {
+            max-width: 700px;
+            height: 300px;
+            object-fit: cover;
+            /* Ajustar la imagen para que cubra el contenedor */
+        }
+    </style>
+
+    {% endblock contenido %}
