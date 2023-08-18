@@ -2,12 +2,11 @@
 
 
 
-
 {% block contenido %}
 <section>
  <div>
-   <h1>Posteos</h1>
-   <a href="{% url 'crear_posteo' %}">Subir posteo</a>
+   <h1 style="color: beige;">Posteos</h1>
+   <a class="btn btn-secondary" href="{% url 'crear_posteo' %}">Nuevo post</a>
    <br>
 
     <br>
@@ -30,13 +29,13 @@
             <td>{{ posteo.creador }}</td>
             <td>{{ posteo.fecha_publicacion }}</td>
             <td>
-              <a href="{% url 'ver_posteo' posteo.id %}">Ver</a>
+              <a class="btn btn-outline-primary" href="{% url 'ver_posteo' posteo.id %}">Ver</a>
             </td>
             <td>
-              <a href="{% url 'editar_posteo' posteo.id %}">Editar</a>
+              <a class="btn btn-outline-primary" href="{% url 'editar_posteo' posteo.id %}">Editar</a>
             </td>
             <td>
-              <a href="{% url 'eliminar_posteo' posteo.id %}">
+              <a class="btn btn-outline-primary" href="{% url 'eliminar_posteo' posteo.id %}">Eliminar
                 <i class="bi bi-trash"></i>
               </a>
             </td>
@@ -45,7 +44,7 @@
 
        {% else  %}
           <tr>
-            <td>No hay entradas aún</td>
+            <td style="color: beige;">No hay entradas aún</td>
           </tr>
        {% endif %}
      </tbody>
@@ -57,7 +56,7 @@
 
 <style>
   .tabla-fila {
-   background-color: #fff; 
+   background-color: #f5f5dc; 
     }
 </style>
 {% endblock contenido %}

@@ -3,7 +3,7 @@
 {% block contenido %}
 
 
-<div>
+<div style="color: beige;">
 
     <h1>{{ posteo.titulo }}</h1>
     <p>{{ posteo.bajada }}</p>
@@ -11,12 +11,10 @@
     <p>Fecha de publicación: {{ posteo.fecha_publicacion }}</p>
     <img src="{{ posteo.imagen.url }}" alt="{{ posteo.imagen.alt }}" style="max-width: 700px; max-height: 300px;" />
     <p>{{ posteo.texto| safe  }}</p>
-    
 
-    
-
-    <br><br>
-    <a href="{% url 'lista_posteos' %}">Volver lista</a>
-    <br><br>
+    <br>
+    <a class="btn btn-secondary" href="{% url 'lista_posteos' %}">Volver a la lista<i class="bi bi-arrow-90deg-left"></i></a>
+    <br><br><br><br>   
 </div>
+
 {% endblock contenido %}

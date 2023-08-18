@@ -2,14 +2,14 @@
 
 {% block contenido %}
 
-<form method="post">
+<form method="post" style="color: beige;">
  {% csrf_token %}
  {{ form.as_p }}
  <p>¿Estas seguro deseas eliminar {{object}}?</p>
- <input type="submit" value="Eliminar" />
+ <input class="btn btn-danger" type="submit" value="Eliminar" />
 </form>
 
 <br>
-<a href="{% url 'lista_posteos' %}">Volver lista</a>
+<a class="btn btn-secondary" href="{% url 'lista_posteos' %}">Volver a la lista <i class="bi bi-arrow-90deg-left"></i></a>
 
 {% endblock contenido %}

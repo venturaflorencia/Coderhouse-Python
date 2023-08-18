@@ -40,7 +40,7 @@
         <div class="container">
             <a class="nav-link" style="color: beige;" href="{% url 'inicio' %}">Inicio</a>
             <a class="nav-link" style="color: beige;" href="{% url 'about' %}">Acerca de mí</a>
-            <a class="nav-link" style="color: beige;" href="">Artículos</a>
+            <a class="nav-link" style="color: beige;" href="{% url 'lista_posteos' %}">Artículos</a>
 
             {% if user.is_authenticated %}
             <div class="dropdown">
